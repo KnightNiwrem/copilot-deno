@@ -8,12 +8,9 @@ steps:
     with:
       deno-version: v2.x
 
-  # Setup Docker Compose
-  - name: Install Docker Compose
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y docker-compose-plugin
-      docker compose version
+  # Setup Docker Buildx
+  - name: Setup Docker Buildx
+    uses: docker/setup-buildx-action@v3
 
   # Add needed domains to the firewall allowlist
   - name: Configure firewall allowlist
