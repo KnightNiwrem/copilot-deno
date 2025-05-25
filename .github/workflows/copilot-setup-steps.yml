@@ -2,6 +2,9 @@ name: Copilot Setup Steps
 
 # This file configures the development environment for GitHub Copilot
 
+env:
+  COPILOT_AGENT_FIREWALL_ALLOW_LIST_ADDITIONS: deno.land,lib.deno.dev,jsr.io
+
 steps:
   # Setup Deno
   - uses: denoland/setup-deno@v2
@@ -11,12 +14,3 @@ steps:
   # Setup Docker Buildx
   - name: Setup Docker Buildx
     uses: docker/setup-buildx-action@v3
-
-  # Add needed domains to the firewall allowlist
-  - name: Configure firewall allowlist
-    uses: github/copilot/actions/setup-firewall-allowlist@v1
-    with:
-      domains: |
-        deno.land
-        lib.deno.dev
-        jsr.io
