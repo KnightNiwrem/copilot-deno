@@ -6,7 +6,7 @@ steps:
   # Setup Deno
   - uses: denoland/setup-deno@v1
     with:
-      deno-version: v1.x
+      deno-version: v2.x
 
   # Setup Docker Compose
   - name: Install Docker Compose
