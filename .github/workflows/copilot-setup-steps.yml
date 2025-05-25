@@ -1,0 +1,25 @@
+name: Copilot Setup Steps
+
+# This file configures the development environment for GitHub Copilot
+
+steps:
+  # Setup Deno
+  - uses: denoland/setup-deno@v1
+    with:
+      deno-version: v1.x
+
+  # Setup Docker Compose
+  - name: Install Docker Compose
+    run: |
+      sudo apt-get update
+      sudo apt-get install -y docker-compose-plugin
+      docker compose version
+
+  # Add needed domains to the firewall allowlist
+  - name: Configure firewall allowlist
+    uses: github/copilot/actions/setup-firewall-allowlist@v1
+    with:
+      domains: |
+        deno.land
+        lib.deno.dev
+        jsr.io
