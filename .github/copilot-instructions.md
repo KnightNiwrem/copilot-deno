@@ -66,10 +66,26 @@ volumes:
 If developing a Telegram bot:
 
 - Use `grammy` and related plugins imported from `lib.deno.dev`
+- The lib.deno.dev import URL structure mirrors that of deno.land/x
+- For example, if the deno.land import URL is https://deno.land/x/grammy@v1.36.3/mod.ts, then the lib.deno.dev version would be https://lib.deno.dev/x/grammy@v1/mod.ts
+- Note that lib.deno.dev respects semantic versioning, so using `@v1` will automatically use the latest 1.x.x version
 - **Important**: Do NOT use grammy sessions
 
 Example import:
 
 ```typescript
-import { Bot } from "https://lib.deno.dev/grammy/start";
+import { Bot } from "https://lib.deno.dev/x/grammy/mod.ts";
+```
+
+## Deno Standard Libraries
+
+For Deno standard libraries:
+
+- Use the "jsr:" prefix for importing standard libraries
+- This is the recommended way to import Deno standard libraries in new projects
+
+Example import:
+
+```typescript
+import * as assert from "jsr:@std/assert";
 ```
