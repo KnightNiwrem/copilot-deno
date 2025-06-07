@@ -90,6 +90,33 @@ Example import:
 import * as assert from "jsr:@std/assert";
 ```
 
+## Testing Guidelines
+
+When developing features for this project:
+
+- Features should be written in a way that they can be unit tested
+- Prefer using testing functions such as `describe` and `it` from "jsr:@std/testing/bdd" over "Deno.test"
+- This provides better test organization and readability with behavior-driven development patterns
+
+Example test structure:
+
+```typescript
+import { describe, it } from "jsr:@std/testing/bdd";
+import { expect } from "jsr:@std/expect";
+
+describe("Feature Name", () => {
+  it("should do something specific", () => {
+    // Test implementation
+    expect(result).toBe(expected);
+  });
+
+  it("should handle edge cases", () => {
+    // Test implementation
+    expect(result).toBe(expected);
+  });
+});
+```
+
 ## Sandbox Environment Certificate Handling
 
 When running in GitHub Copilot's sandbox environment, you may encounter certificate errors due to MITM (Man-in-the-Middle) proxy certificates. To handle this when running Deno commands that need to pull imports:
