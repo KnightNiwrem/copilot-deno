@@ -89,3 +89,21 @@ Example import:
 ```typescript
 import * as assert from "jsr:@std/assert";
 ```
+
+## Sandbox Environment Certificate Handling
+
+When running in GitHub Copilot's sandbox environment, you may encounter certificate errors due to MITM (Man-in-the-Middle) proxy certificates. To handle this when running Deno commands that need to pull imports:
+
+- Use the `--unsafely-ignore-certificate-errors` flag with Deno commands
+- This flag should only be used in sandbox environments where MITM proxy certificates are expected
+- Apply this flag to commands like `deno run`, `deno test`, `deno check`, etc. when they need to fetch remote modules
+
+Example usage:
+
+```bash
+deno run --unsafely-ignore-certificate-errors main.ts
+deno test --unsafely-ignore-certificate-errors
+deno check --unsafely-ignore-certificate-errors src/
+```
+
+**Note**: This flag should only be used in trusted sandbox environments and never in production code.
