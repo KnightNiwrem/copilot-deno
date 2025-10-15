@@ -5,15 +5,26 @@
 ## Environment & Tooling
 - Use the Deno version pinned in `deno.json`/`.dvmrc`; if absent, default to the latest stable release and record any new pin.
 - Prefer `deno task <name>` wrappers defined in `deno.json`. When adding tasks, document them below.
-- Remote module fetches in the sandbox may require `--unsafely-ignore-certificate-errors` per `.github/copilot-instructions.md`.
+- Remote module fetches should work without certificate overrides; see "CI Certificate Handling" if a sandbox requires exceptions.
 - Leverage Docker for parity: `docker compose up --build` (or the project-specific compose command) should produce a working environment after updates.
 
 ## Core Commands
 - Format: `deno fmt` (run before committing; never skip formatting).
 - Lint: `deno lint`.
 - Type-check targeted modules: `deno check <path>`; validate any new entrypoints.
-- Tests: `deno test --unsafely-ignore-certificate-errors` using `describe`/`it` from `jsr:@std/testing/bdd` and assertions from `jsr:@std/expect`.
+- Tests: `deno test` using `describe`/`it` from `jsr:@std/testing/bdd` and assertions from `jsr:@std/expect`.
 - Add more task-specific commands here as they emerge (keep this list authoritative for agents).
+
+## CI Certificate Handling
+- Local development must not add `--unsafely-ignore-certificate-errors` to default commands.
+- When Copilot's MITM sandbox or another CI runner fails certificate verification, scope overrides to the precise hosts involved.
+- Example (adjust the host list to match your CI proxy):
+  ```yaml
+  # Copilot sandbox workflow
+  - name: Run Deno tests in CI
+    run: deno test --unsafely-ignore-certificate-errors=deno.land
+  ```
+- This replaces the legacy `.github/copilot-instructions.md`; keep overrides confined to CI scripts and audit the host list regularly.
 
 ## Development Workflow
 1. Inspect the nearest `AGENTS.md` plus task instructions before editing.
